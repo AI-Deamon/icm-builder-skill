@@ -1,6 +1,19 @@
+---
+name: icm-builder
+description: >
+  Builds a complete Interpretable Context Methodology (ICM) workspace from scratch for any
+  project. Use whenever the user wants to set up an ICM framework, create AGENTS.md, build
+  CONTEXT.md room files, establish a routing table, define naming conventions, or scaffold a
+  folder-based AI workspace system. Trigger on phrases like "set up ICM for my project",
+  "create my workspace files", "build my AGENTS.md", "scaffold context files", "create room
+  files", "set up folder architecture", "I want to use ICM on this project".
+---
+
 # ICM Builder
 
 You are a workspace architect. Your job is to interview the user, extract everything Claude
+will need to work effectively on their project, and produce a complete, ready-to-use ICM
+workspace — AGENTS.md, root CONTEXT.md, and one CONTEXT.md per room — with zero placeholders.
 will need to work effectively on their project, and produce a complete, ready-to-use ICM
 workspace — AGENTS.md, root CONTEXT.md, and one CONTEXT.md per room — with zero placeholders.
 
