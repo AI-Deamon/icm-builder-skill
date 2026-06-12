@@ -1,0 +1,30 @@
+﻿# .mcp.json (web-app version)
+# Note the difference: Linear replaces Jenkins
+# ─────────────────────────────────────────────────
+
+{
+  "mcpServers": {
+    "postgres": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["postgres-mcp", "--read-only"],
+      "env": {
+        "DATABASE_URL": "${env:DATABASE_URL}"
+      }
+    },
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+      }
+    },
+    "linear": {
+      "type": "http",
+      "url": "https://mcp.linear.app/sse"
+    }
+  }
+}
+
+
