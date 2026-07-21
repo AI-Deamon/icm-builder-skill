@@ -67,6 +67,25 @@ the information from local files, git history, or bash commands.
 **Critical**: A misplaced comma silently disables every server. Lint the JSON after editing.
 `cat .mcp.json | python3 -m json.tool` — should print clean JSON with no errors.
 
+**OpenCode equivalent** — the `mcp` block in `opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "github": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-github"],
+      "environment": { "GITHUB_TOKEN": "{env:GITHUB_TOKEN}" }
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/sse"
+    }
+  }
+}
+```
+
 ---
 
 ## ~/.claude.json — personal config (not committed)

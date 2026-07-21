@@ -27,6 +27,8 @@ description: >
 allowed-tools: Read Bash(git:*) mcp__github__get_pull_request_files
                # Optional. Space-delimited. Scopes the tool surface for this skill.
                # Use it — a docs skill has no business with GitHub write tools.
+               # CAUTION: if the skill must create or edit files, the list MUST include
+               # Write/Edit — or omit allowed-tools entirely.
 ---
 ```
 
@@ -109,6 +111,9 @@ Three locations, in priority order:
 | Personal | `~/.claude/skills/[name]/SKILL.md` | All your projects | Personal preferences, shortcuts |
 | Plugin marketplace | `/plugin marketplace add owner/repo` | Installed | Community-maintained skills |
 
+OpenCode equivalents: `.opencode/skill/[name]/SKILL.md` (project) and
+`~/.config/opencode/skill/[name]/SKILL.md` (personal).
+
 Commit project skills to the repo — they're team standards, not personal config.
 
 ---
@@ -179,6 +184,7 @@ allowed-tools: mcp__postgres__query
 | Skill body over 500 lines | Move detail to adjacent files, reference from body |
 | Generic description ("helps with coding") | Rewrite with "Use when [X]" and specific triggers |
 | No allowed-tools | Add scope — a skill with no scope can use any tool |
+| allowed-tools that blocks the skill's own job | A file-generating skill without Write cannot work |
 | Steps that say "fix the issue" | Replace with concrete actions and verification commands |
 | No "Done when" section | Add it — Claude needs a clear completion signal |
 | Skill doing what a hook should | Move blocking/mandatory behaviour to a hook |

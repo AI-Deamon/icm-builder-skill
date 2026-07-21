@@ -1,5 +1,9 @@
 # Hooks Guide
 
+**Compatibility: Claude Code (native), OpenCode (via plugin/permission equivalents).
+Hooks do not exist in claude.ai chat, Cursor, or Gemini CLI — for those tools the same
+rules must live in CONTEXT.md as hard rules (advisory).**
+
 ## What hooks are
 
 Hooks are deterministic scripts that fire at specific points in Claude Code's lifecycle.

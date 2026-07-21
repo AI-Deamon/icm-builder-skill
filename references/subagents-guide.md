@@ -1,5 +1,7 @@
 # Subagents Guide
 
+**Compatibility: Claude Code and OpenCode. Other tools: skip this phase.**
+
 ## What subagents are
 
 Subagents are isolated Claude instances that run in their own context window. They report
@@ -30,7 +32,7 @@ when the task's output would contaminate the main session's reasoning.
 
 ## Subagent file format
 
-Subagents live at `.claude/agents/[agent-name].md`:
+Subagents live at `.claude/agents/[agent-name].md` (OpenCode: `.opencode/agent/[name].md`):
 
 ```markdown
 ---

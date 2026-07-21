@@ -25,7 +25,7 @@ Every skill file has a "Done when" section. Claude must be able to show evidence
 each criterion is met — not just assert it.
 
 ### Level 3: Workspace-level rubric (end of significant tasks)
-`.claude/self-eval.md` contains a scored rubric. Claude runs this on tasks that:
+`.icm/self-eval.md` contains a scored rubric. Claude runs this on tasks that:
 - Span multiple rooms
 - Touch shared types or interfaces
 - Are about to be committed or handed off
@@ -35,7 +35,7 @@ each criterion is met — not just assert it.
 
 ## Self-evaluation rubric template
 
-The rubric lives at `.claude/self-eval.md`. Customize the scoring criteria for the
+The rubric lives at `.icm/self-eval.md`. Customize the scoring criteria for the
 project, but always include these five dimensions:
 
 ### 1. Correctness
@@ -185,7 +185,7 @@ polluted one with accumulated failed reasoning.
 Add a brief self-eval reference:
 ```markdown
 ## Self-Evaluation
-Before marking any task done, Claude runs `.claude/self-eval.md`.
+Before marking any task done, run `.icm/self-eval.md`.
 Score 18+ = done. Score below 13 = restart with /clear.
 ```
 
@@ -193,7 +193,7 @@ Score 18+ = done. Score below 13 = restart with /clear.
 End every process with:
 ```markdown
 4. **Refine** — Run [test command]. If any fail, fix and re-run. Report results.
-5. **Self-check** — Run `.claude/self-eval.md` if this task is being handed off or committed.
+5. **Self-check** — Run `.icm/self-eval.md` if this task is being handed off or committed.
 ```
 
 ### In skill "Done when" sections
