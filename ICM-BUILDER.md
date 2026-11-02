@@ -45,6 +45,8 @@ Check the project root:
    Read `references/update-mode.md` and follow it. Do not continue with the fresh phases.
 2. `AGENTS.md` exists without the marker → the user has hand-written context. Ask whether
    to absorb it into a new ICM workspace (preserving their content) or leave it untouched.
+   Absorb → continue to Phase 1, treating the existing file as scan input. Leave untouched
+   → stop here; generate or modify nothing.
 3. No `AGENTS.md` → **FRESH mode**. Continue to Phase 1.
 
 ---
@@ -118,6 +120,9 @@ The full question bank — ask only the unanswered ones:
 5. **Naming conventions**: How do you name specs, drafts, finals, versioned outputs, tests?
    Where should generated files go? Any read-only folders?
 6. **Quality bar**: What does a bad agent output look like in this project? A good one?
+7. **Agent tooling** (decides Phase 9's output): Which AI coding tools does your team
+   use — Claude Code, Cursor, Gemini CLI, GitHub Copilot, OpenCode, others? Generate
+   entry files only for tools someone actually uses.
 
 ---
 
@@ -146,8 +151,8 @@ Layer 3 skills: [name] — [trigger] — [what it does]
 Naming conventions: [type] → [pattern] → [example]
 Hard rules from failure patterns: [rules]
 
-Per-tool entry files to generate: [CLAUDE.md, GEMINI.md, .cursor/rules/icm.mdc,
-.github/copilot-instructions.md — based on which tools the user's team uses; ask if unknown]
+Per-tool entry files to generate: [from Phase 2 question 7 — e.g. CLAUDE.md, GEMINI.md,
+.cursor/rules/icm.mdc, .github/copilot-instructions.md]
 ```
 
 Ask: "Does this match how you actually work? Anything wrong, missing, or to rename?"
@@ -248,7 +253,8 @@ AGENTS.md is always loaded. Each room's CONTEXT.md defines its own load/skip bud
 1. **Identify intent** — match the request to the routing table
 2. **Teleport** — read only the target room's CONTEXT.md
 3. **Execute** — follow that room's process and hard rules exactly
-4. **Self-check** — run the room's verification commands before saying done
+4. **Self-check** — run the room's verification commands, then run `.icm/self-eval.md`
+   before saying done
 ```
 
 ---
@@ -313,8 +319,8 @@ applies to them. The core ICM files (AGENTS.md + CONTEXT.md) work with every age
 
 Read `references/self-evaluation-framework.md`. Output `.icm/self-eval.md` — the 5-dimension
 rubric (Correctness, Scope Discipline, Context Adherence, Output Quality, Hard Rule
-Compliance, each 1–5) with the scoring bands and self-report format. Reference it from the
-root CONTEXT.md First Move step 4 so every agent runs it before claiming "done".
+Compliance, each 1–5) with the scoring bands and self-report format. It's already
+referenced from the root CONTEXT.md First Move step 4 (Phase 5) — no separate wiring needed.
 
 ---
 
