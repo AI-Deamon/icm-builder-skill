@@ -1,8 +1,3 @@
-﻿# Layer 3 Skills for the security-tool example
-# ─────────────────────────────────────────────────
-
-# .claude/skills/systematic-debugging/SKILL.md
-
 ---
 name: systematic-debugging
 description: >

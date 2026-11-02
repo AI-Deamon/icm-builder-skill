@@ -1,7 +1,3 @@
-﻿# ─────────────────────────────────────────────────
-# .claude/skills/pipeline-stage-spec/SKILL.md
-# ─────────────────────────────────────────────────
-
 ---
 name: pipeline-stage-spec
 description: >

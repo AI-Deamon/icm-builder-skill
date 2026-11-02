@@ -12,8 +12,8 @@ description: >
   GEMINI.md", "make my repo AI-readable", "help the agent understand my project",
   "context files", "room files", "my agent keeps losing context", "stop wasting tokens
   searching", "onboard Claude/Gemini/Cursor to this codebase", or when a user describes
-  a project and wants persistent, session-independent agent understanding — even if
-  they never say "ICM".
+  a project and wants persistent, session-independent agent context — even if they
+  never say "ICM".
 ---
 
 # ICM Builder

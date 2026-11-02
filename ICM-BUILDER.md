@@ -79,6 +79,10 @@ folder tree, monorepo layout, CI config, test setup, existing agent-context file
    `.cursorrules`, `.github/copilot-instructions.md`, `opencode.json`, `.claude/`
 7. README (first 50 lines) for the project's own description of itself
 
+Without a shell, you're composing every file by hand — use
+`assets/templates/blank-templates.md` as the starting scaffold for AGENTS.md, room
+CONTEXT.md, skills, hooks, and subagents, and replace every `[bracket]`.
+
 After scanning, present a **Scan Summary** to the user:
 
 ```
@@ -291,6 +295,8 @@ applies to them. The core ICM files (AGENTS.md + CONTEXT.md) work with every age
   (`systematic-debugging`, `verification-before-completion`, `pre-commit-checklist`,
   `code-review-prep`, `spec-writer`) and create only what the user requests. Place at
   `.claude/skills/[name]/SKILL.md` and (if the user uses OpenCode) `.opencode/skill/[name]/SKILL.md`.
+  For a worked example of this whole phase's output (skills, hooks, `.mcp.json`, and the
+  AGENTS.md/CONTEXT.md they're referenced from), see `references/examples/security-tool/`.
 - **MCP config**: read `references/mcp-integration-guide.md`. Output `.mcp.json` (Claude
   Code) and, if the user uses OpenCode, the `mcp` block for `opencode.json`. One server per
   external system; only systems confirmed in Phase 2. Include an install guide per server.

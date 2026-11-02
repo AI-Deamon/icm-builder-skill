@@ -1,6 +1,3 @@
-﻿# .claude/skills/verification-before-completion/SKILL.md
-# ─────────────────────────────────────────────────
-
 ---
 name: verification-before-completion
 description: >
