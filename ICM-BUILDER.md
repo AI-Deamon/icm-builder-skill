@@ -274,7 +274,9 @@ AGENTS.md is always loaded. Each room's CONTEXT.md defines its own load/skip bud
 3. **Execute** — follow that room's process and hard rules exactly
 4. **Self-check** — run the room's verification commands before saying done. If this task
    spans multiple rooms, touches shared types, or is about to be committed/handed off, also
-   run `.icm/self-eval.md` (Level 3) — not required for routine single-room tasks
+   run `.icm/self-eval.md` (Level 3) — not required for routine single-room tasks. In
+   Claude Code/OpenCode, delegate Level 3 to the `self-eval-reviewer` subagent by default
+   rather than scoring it in this same context; other tools self-administer it here
 ```
 
 ---
@@ -339,8 +341,11 @@ applies to them. The core ICM files (AGENTS.md + CONTEXT.md) work with every age
   in Phase 2 question 4 — never generic hooks. Output `.claude/settings.json` + scripts in
   `.claude/hooks/*.sh` (exit code 2 blocks). Mark clearly: Claude Code only; OpenCode users
   get the equivalent `opencode.json` plugin/permission config where possible.
-- **Subagents** (optional): read `references/subagents-guide.md`. Offer only for recurring
-  tasks needing context isolation, parallelism, or bias prevention.
+- **Subagents**: read `references/subagents-guide.md`. In Claude Code/OpenCode, always
+  generate `self-eval-reviewer` — it is not optional, since Phase 5's root CONTEXT.md
+  delegates every Level 3 self-eval to it by default. Offer the rest (`code-reviewer`,
+  `test-writer`, `spec-writer`, etc.) only for recurring tasks needing context isolation,
+  parallelism, or bias prevention.
 
 ---
 
@@ -350,9 +355,9 @@ Read `references/self-evaluation-framework.md`. Output `.icm/self-eval.md` — t
 rubric (Correctness, Scope Discipline, Context Adherence, Output Quality, Hard Rule
 Compliance, each 1–5) with the scoring bands and self-report format. It's already
 referenced from the root CONTEXT.md First Move step 4 (Phase 5) — no separate wiring needed.
-In OpenCode or Claude Code, also offer the `self-eval-reviewer` subagent (Phase 7,
-`references/subagents-guide.md`) so hand-offs get graded independently instead of
-self-graded — self-grading is a known weak point of this rubric.
+In OpenCode or Claude Code, Phase 7 always generates the `self-eval-reviewer` subagent
+(not optional), and Phase 5's step 4 delegates to it by default — self-grading is a known
+weak point of this rubric, so independent grading is the default there, not an opt-in.
 
 ---
 
