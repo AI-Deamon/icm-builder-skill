@@ -69,8 +69,10 @@ folder tree, monorepo layout, CI config, test setup, existing agent-context file
 
 1. Manifests: `package.json` (scripts block = commands), `pyproject.toml`, `requirements.txt`,
    `go.mod`, `Cargo.toml`, `pom.xml`, `composer.json`, `Gemfile`
-2. Folder tree, 2 levels deep, ignoring `node_modules`, `.git`, `dist`, `build`, `venv`,
-   `__pycache__`, `.next`, `target`
+2. Folder tree, 2 levels deep for the summary, ignoring `node_modules`, `.git`, `dist`,
+   `build`, `venv`, `__pycache__`, `.next`, `target` — but keep going deeper wherever a
+   folder looks structurally significant, and note the deepest path you actually find; the
+   2-level cap is for a readable display, not a limit on what depth gets reported
 3. Monorepo signals: `pnpm-workspace.yaml`, `lerna.json`, `turbo.json`, `nx.json`,
    `workspaces` field, `packages/` or `apps/` folders
 4. CI and infra: `.github/workflows/`, `Jenkinsfile`, `.gitlab-ci.yml`, `Dockerfile`,
@@ -93,6 +95,8 @@ Scan summary:
 - Stack: [languages, frameworks, DB, infra found]
 - Commands found: dev=[cmd] test=[cmd] build=[cmd] lint=[cmd]
 - Layout: [single repo / monorepo with packages X, Y]
+- Max folder depth: [N] levels [+ deepest path(s), from scan.sh's unrestricted depth scan —
+  not the 2-level display tree, which is for readability only]
 - Candidate rooms (from folder structure, or cross-cutting concerns if folders don't
   match how work actually splits): [list]
 - Existing agent context files: [list or none]

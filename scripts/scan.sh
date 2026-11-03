@@ -94,6 +94,23 @@ find . -maxdepth 2 -type d \
   2>/dev/null | sort | head -60
 echo '```'
 
+# ---------- Folder depth (full tree, unlimited) ----------
+section "Folder depth"
+DEPTH_LIST=$(find . -type d \
+  ! -path '*/node_modules*' ! -path '*/.git*' ! -path '*/dist*' \
+  ! -path '*/build*' ! -path '*/.next*' ! -path '*/venv*' ! -path '*/.venv*' \
+  ! -path '*/__pycache__*' ! -path '*/target*' ! -path '*/coverage*' \
+  2>/dev/null)
+MAXDEPTH=$(echo "$DEPTH_LIST" | awk -F'/' '{print NF-2}' | sort -n | tail -1)
+MAXDEPTH="${MAXDEPTH:-0}"
+DEEPEST=$(echo "$DEPTH_LIST" | awk -F'/' -v want="$MAXDEPTH" '{if (NF-2==want) print}' | head -3)
+echo "- Max folder depth: $MAXDEPTH levels (unrestricted scan, not the 2-level display above)"
+[ -n "$DEEPEST" ] && { echo "- Deepest path(s):"; echo "$DEEPEST" | sed 's/^/  /'; }
+if [ "$MAXDEPTH" -gt 4 ]; then
+  echo "- Flag: >4 levels deep — rooms should likely be defined by package/feature"
+  echo "  (Phase 2/3), not by walking the raw folder tree that far down."
+fi
+
 # ---------- CI / infra ----------
 section "CI and infrastructure"
 [ -d .github/workflows ] && echo "- GitHub Actions: $(ls .github/workflows 2>/dev/null | tr '\n' ' ')"
