@@ -272,8 +272,9 @@ AGENTS.md is always loaded. Each room's CONTEXT.md defines its own load/skip bud
 1. **Identify intent** — match the request to the routing table
 2. **Teleport** — read only the target room's CONTEXT.md
 3. **Execute** — follow that room's process and hard rules exactly
-4. **Self-check** — run the room's verification commands, then run `.icm/self-eval.md`
-   before saying done
+4. **Self-check** — run the room's verification commands before saying done. If this task
+   spans multiple rooms, touches shared types, or is about to be committed/handed off, also
+   run `.icm/self-eval.md` (Level 3) — not required for routine single-room tasks
 ```
 
 ---
