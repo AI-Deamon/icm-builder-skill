@@ -1,5 +1,6 @@
 ---
 name: icm-builder
+version: 1.0.0
 description: >
   Builds and maintains an Interpretable Context Methodology (ICM) workspace for any
   codebase: root AGENTS.md, per-folder CONTEXT.md room files, tooling rules that tell

@@ -128,6 +128,13 @@ The full question bank — ask only the unanswered ones:
 
 ## Phase 3: Architecture Plan (confirm before building)
 
+Room-count sanity check before drafting the plan: fewer than 2 rooms means the project is
+too small for routing to earn its keep — Phase 4's Routing Table can drop below its usual
+6–10 rows (even to a single row) rather than inventing distinctions that don't exist. More
+than ~12 means the rooms are probably too fine-grained to navigate faster than a plain
+folder tree — merge adjacent ones (e.g. by top-level package) until routing stays genuinely
+quicker than just reading the Architecture table.
+
 Present this plan and get explicit confirmation before writing any file:
 
 ```
@@ -192,7 +199,8 @@ Required sections, in order:
 |-------------|------|------|
 | [real intent phrase] | `[path]/` | `[path]/CONTEXT.md` |
 
-[6–10 rows. Real intent phrases, never category names like "backend" or "code".]
+[6–10 rows normally, fewer if Phase 3's room-count check found under 2 rooms. Real intent
+phrases, never category names like "backend" or "code".]
 
 ## Tooling Rules — read this before searching or acting
 
@@ -358,7 +366,8 @@ Output `.icm/manifest.md` — the file UPDATE mode diffs against:
 ```markdown
 # ICM Manifest
 Generated: [YYYY-MM-DD]
-Builder: icm-builder [version]
+Builder: icm-builder [version — read the `version:` field from this skill's own SKILL.md
+frontmatter; if there isn't one, write "unversioned"]
 
 ## Managed files
 [list every file generated, one per line, with the room it belongs to]
