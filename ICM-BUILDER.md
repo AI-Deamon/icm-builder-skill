@@ -180,6 +180,25 @@ Adjust, then build.
 
 ---
 
+## Decision Log (runs continuously from here through Phase 10)
+
+Phase 3 confirmed the overall plan once. From here on, every meaningful decision made while
+actually building it — a room boundary, a persona choice, a hard rule, which skill/MCP/hook
+to create and why, a naming convention, how a vague Phase 2 answer got resolved into a
+stated assumption — gets narrated as a one-line statement, not a question: e.g. "Room
+`api/` gets the hard rule about migration edits because Phase 2 Q4 named it as a repeat
+failure." This does not block — keep building; the user can interrupt if something's wrong,
+but there's no pause waiting for a reply.
+
+Append each line to `.icm/decisions.md` as you go (create it now, empty, if it doesn't
+exist yet — format: `- [room/file] decision — reason`). This is separate from
+`.icm/manifest.md` (lists what was generated) and the UPDATE-mode drift report (compares
+scans) — `decisions.md` is the running "why," so the reasoning survives this session and is
+readable by a future UPDATE-mode run or by you revisiting this workspace cold. It is itself
+a managed file — list it in Phase 10's manifest like any other.
+
+---
+
 ## Phase 4: Build Layer 1 — AGENTS.md (root, source of truth)
 
 `AGENTS.md` is the single source of truth. Per-tool files (CLAUDE.md etc.) are generated
@@ -329,6 +348,11 @@ Decision rule first — pick the right mechanism:
 Label every generated artifact with its compatibility so users on other tools know what
 applies to them. The core ICM files (AGENTS.md + CONTEXT.md) work with every agent.
 
+Every mechanism choice below goes in `.icm/decisions.md` (per the Decision Log above) —
+these are exactly the decisions with real downstream consequences (tool access, write
+permissions, what the agent is told to reach for), so log which mechanism you picked and
+why, not just that you picked one.
+
 - **Skills**: read `references/layer3-skills-guide.md`. Offer the standard set
   (`systematic-debugging`, `verification-before-completion`, `pre-commit-checklist`,
   `code-review-prep`, `spec-writer`) and create only what the user requests. Place at
@@ -400,7 +424,8 @@ Builder: icm-builder [version — read the `version:` field from this skill's ow
 frontmatter; if there isn't one, write "unversioned"]
 
 ## Managed files
-[list every file generated, one per line, with the room it belongs to]
+[list every file generated, one per line, with the room it belongs to — include
+`.icm/decisions.md` itself]
 
 ## Scan snapshot
 [the Phase 1 scan summary verbatim — stack, commands, layout, rooms]
@@ -419,6 +444,7 @@ as a fenced code block labeled with its path (if you don't). Delivery order:
 1. `AGENTS.md` → 2. `CONTEXT.md` → 3. each `[room]/CONTEXT.md` → 4. skills →
 5. `.claude/settings.json` + hook scripts → 6. `.mcp.json` (+ `opencode.json` block) →
 7. `.icm/self-eval.md` → 8. subagents → 9. per-tool entry files → 10. `.icm/manifest.md`
+(`.icm/decisions.md` isn't in this order — it was written incrementally throughout 4-10)
 
 Then verify the install with the user:
 
@@ -452,4 +478,5 @@ per-tool copy has the GENERATED header.
 
 **Self-awareness**: the workspace tells the agent which room and phase it is in · the
 self-eval rubric is runnable by the agent itself · tooling rules tell the agent when to
-use skills/MCPs and when to re-run icm-builder.
+use skills/MCPs and when to re-run icm-builder · `.icm/decisions.md` has a logged entry for
+every room boundary, hard rule, and skill/MCP/hook choice made.

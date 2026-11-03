@@ -13,8 +13,11 @@ Read, in this order:
 
 1. `.icm/manifest.md` — the list of managed files and the scan snapshot from last run.
    If it is missing, reconstruct what you can from AGENTS.md and note the gap.
-2. `AGENTS.md` — current source of truth.
-3. The routing table — to know which rooms are supposed to exist.
+2. `.icm/decisions.md` — why the workspace looks the way it does. If a drift finding seems
+   to contradict a past decision (e.g. a room boundary chosen for a reason that's no longer
+   true), say so in the drift report instead of silently re-deciding it.
+3. `AGENTS.md` — current source of truth.
+4. The routing table — to know which rooms are supposed to exist.
 
 Do NOT read every room CONTEXT.md yet — only the ones drift analysis flags.
 
@@ -57,6 +60,10 @@ UNCHANGED: [count] managed files verified current.
 ```
 
 ## Step 4: Patch (after user confirms)
+
+Same as ICM-BUILDER.md's Decision Log (Phases 4-10): narrate each patch decision as a
+one-line statement and append it to `.icm/decisions.md` as you go — doesn't block, just
+keeps the "why" current.
 
 - **Stale commands/paths**: edit in place. Touch only the wrong lines.
 - **New folders → new rooms**: run the abbreviated flow — ask the room questions from
