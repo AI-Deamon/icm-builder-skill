@@ -302,7 +302,10 @@ applies to them. The core ICM files (AGENTS.md + CONTEXT.md) work with every age
   `code-review-prep`, `spec-writer`) and create only what the user requests. Place at
   `.claude/skills/[name]/SKILL.md` and (if the user uses OpenCode) `.opencode/skill/[name]/SKILL.md`.
   For a worked example of this whole phase's output (skills, hooks, `.mcp.json`, and the
-  AGENTS.md/CONTEXT.md they're referenced from), see `references/examples/security-tool/`.
+  AGENTS.md/CONTEXT.md they're referenced from), see `references/examples/security-tool/`,
+  then `references/examples/web-app/` and its `COMPARISON.md` to see what's structural
+  (constant across projects) versus what's project-specific (must come from Phase 2, never
+  copied from either example).
 - **MCP config**: read `references/mcp-integration-guide.md`. Output `.mcp.json` (Claude
   Code) and, if the user uses OpenCode, the `mcp` block for `opencode.json`. One server per
   external system; only systems confirmed in Phase 2. Include an install guide per server.
