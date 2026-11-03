@@ -24,8 +24,11 @@ Run `scripts/scan.sh` (or the manual scan from ICM-BUILDER.md Phase 1) on the pr
 
 ## Step 3: Drift report
 
-Compare the fresh scan against the manifest snapshot and the current files. Present ONE
-report before changing anything:
+Compare the fresh scan against the manifest snapshot and the current files. Before filing
+a folder as REMOVED, check whether some NEW folder's file list substantially overlaps it
+(same filenames, or an obvious path-prefix move) — file that pair as RENAMED? instead of
+two unrelated REMOVED/NEW entries, so the old room's accumulated content isn't discarded.
+Present ONE report before changing anything:
 
 ```
 Drift report ([date] vs manifest of [manifest date]):
@@ -35,13 +38,19 @@ NEW — needs a decision:
 - New command in package.json: `[name]` — not in AGENTS.md Commands.
 - New external system config found: [e.g., sentry config] — no MCP entry.
 
+RENAMED? — confirm before treating as delete+create:
+- Room `[old-path]/` is gone; `[new-path]/` is new and its files substantially overlap
+  `[old-path]/`'s last-known file list. Looks like a move/rename, not a delete. Confirm —
+  if yes, its CONTEXT.md (hard rules, gotchas, local map) carries over to the new path
+  instead of being discarded and rebuilt from a blank room.
+
 STALE — will fix automatically on confirm:
 - AGENTS.md lists command `[old]` but package.json now has `[new]`.
 - Room `[y]/CONTEXT.md` Local Map references `[path]` which no longer exists.
 - Routing table row "[intent]" points to deleted folder `[z]/`.
 - Per-tool copy `[CLAUDE.md]` differs from AGENTS.md (someone edited the copy).
 
-REMOVED:
+REMOVED (genuine deletion, not a rename — already ruled out above):
 - Folder `[z]/` deleted but its CONTEXT.md row remains in routing table.
 
 UNCHANGED: [count] managed files verified current.
@@ -52,7 +61,11 @@ UNCHANGED: [count] managed files verified current.
 - **Stale commands/paths**: edit in place. Touch only the wrong lines.
 - **New folders → new rooms**: run the abbreviated flow — ask the room questions from
   Phase 2 for that folder only, then build its CONTEXT.md per Phase 6.
-- **Removed rooms**: delete the routing rows and the orphaned CONTEXT.md (ask first).
+- **Renamed rooms (confirmed)**: move the room's CONTEXT.md to the new path — do not
+  regenerate it. Update its Local Map and the routing table row's path. Everything else
+  (persona, hard rules, gotchas, skills/MCP available) carries over unchanged.
+- **Removed rooms** (confirmed genuine deletion): delete the routing rows and the orphaned
+  CONTEXT.md (ask first).
 - **Edited per-tool copies**: if the copy has changes the user wants to keep, merge them
   INTO AGENTS.md first. Then regenerate every per-tool copy from AGENTS.md per
   `references/output-adapters.md`. Copies are always regenerated last.

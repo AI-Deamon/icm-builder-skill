@@ -93,7 +93,8 @@ Scan summary:
 - Stack: [languages, frameworks, DB, infra found]
 - Commands found: dev=[cmd] test=[cmd] build=[cmd] lint=[cmd]
 - Layout: [single repo / monorepo with packages X, Y]
-- Candidate rooms (from folder structure): [list]
+- Candidate rooms (from folder structure, or cross-cutting concerns if folders don't
+  match how work actually splits): [list]
 - Existing agent context files: [list or none]
 - Could NOT determine: [list]
 ```
@@ -110,7 +111,10 @@ The full question bank — ask only the unanswered ones:
 
 1. **Confirm the scan.** "Is the scan summary right? Anything wrong or missing?"
 2. **Work types** (become rooms): What distinct modes of work do you shift between?
-   Which folders must NEVER be touched while working in another folder?
+   Which folders must NEVER be touched while working in another folder? If a mode of work
+   doesn't live in one folder — a cross-cutting concern, a single-file or flat-script
+   project, a feature-sliced architecture — define that room by a file glob or explicit
+   file list instead of a path; Phase 6's Local Map accepts either.
 3. **External systems** (become MCP servers): Which systems should the agent reach —
    GitHub/GitLab, issue tracker, database, error tracker, Slack, Figma, CI logs?
    For each: read-only or read-write?
@@ -131,9 +135,14 @@ The full question bank — ask only the unanswered ones:
 Room-count sanity check before drafting the plan: fewer than 2 rooms means the project is
 too small for routing to earn its keep — Phase 4's Routing Table can drop below its usual
 6–10 rows (even to a single row) rather than inventing distinctions that don't exist. More
-than ~12 means the rooms are probably too fine-grained to navigate faster than a plain
-folder tree — merge adjacent ones (e.g. by top-level package) until routing stays genuinely
-quicker than just reading the Architecture table.
+than ~12 usually means the rooms are too fine-grained to beat a plain folder tree — merge
+adjacent ones (e.g. by top-level package) until routing stays genuinely quicker than just
+reading the Architecture table. Exception: a monorepo with many independently-owned
+packages that each have real, distinct conventions. Forcing those under ~12 rows would
+blur contexts that actually differ — nest instead of merging: give the root Routing Table
+one row per package, and have each package's own CONTEXT.md repeat the Phase 5 pattern
+(its own "Intent → Room Routing" table) pointing to that package's internal rooms. Root
+AGENTS.md and root CONTEXT.md stay within budget either way; only the nesting depth changes.
 
 Present this plan and get explicit confirmation before writing any file:
 
@@ -200,7 +209,9 @@ Required sections, in order:
 | [real intent phrase] | `[path]/` | `[path]/CONTEXT.md` |
 
 [6–10 rows normally, fewer if Phase 3's room-count check found under 2 rooms. Real intent
-phrases, never category names like "backend" or "code".]
+phrases, never category names like "backend" or "code". Room column holds a glob (e.g.
+`src/billing/**`, `**/*Stripe*`) instead of a folder when the room is cross-cutting rather
+than folder-rooted — see Phase 2 Q2.]
 
 ## Tooling Rules — read this before searching or acting
 
@@ -272,11 +283,17 @@ AGENTS.md is always loaded. Each room's CONTEXT.md defines its own load/skip bud
 One complete CONTEXT.md per room. No skeletons, no placeholders. Read
 `references/layer2-patterns.md` before writing the first room.
 
+If this room is itself a package containing further nested rooms (Phase 3's monorepo
+exception), add an "Intent → Room Routing" section before the sections below, using the
+exact pattern from Phase 5's root CONTEXT.md — same table, scoped to this package.
+
 Mandatory sections per room (full templates and examples in the reference):
 
 1. **Room Definition** — persona (real engineering role) + one-sentence objective
 2. **Token Budget** — table of task → Load / Skip. Every row has a non-empty Skip column.
-3. **Local Map** — real folder tree of this room only, one-line notes
+3. **Local Map** — real folder tree of this room, one-line notes; for a room defined by a
+   glob/file list instead of a folder, list the actual files (grouped by concern, not
+   directory) with the same one-line notes
 4. **The Process** — Source → Plan → Execute → Refine (step 4 = runnable verify commands)
 5. **What Good Looks Like** — measurable quality bars only
 6. **Constraints** — what not to do and why
@@ -332,6 +349,9 @@ Read `references/self-evaluation-framework.md`. Output `.icm/self-eval.md` — t
 rubric (Correctness, Scope Discipline, Context Adherence, Output Quality, Hard Rule
 Compliance, each 1–5) with the scoring bands and self-report format. It's already
 referenced from the root CONTEXT.md First Move step 4 (Phase 5) — no separate wiring needed.
+In OpenCode or Claude Code, also offer the `self-eval-reviewer` subagent (Phase 7,
+`references/subagents-guide.md`) so hand-offs get graded independently instead of
+self-graded — self-grading is a known weak point of this rubric.
 
 ---
 

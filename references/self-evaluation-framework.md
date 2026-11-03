@@ -31,6 +31,13 @@ each criterion is met — not just assert it.
 - Are about to be committed or handed off
 - The user asks "is this ready?" or "is this good?"
 
+**Self-grading is a weak guarantee** — the agent that did the work has every incentive to
+score itself generously. In OpenCode and Claude Code, run the rubric through a dedicated
+`self-eval-reviewer` subagent (`references/subagents-guide.md`) instead of having the
+implementing agent score itself — the fresh, unbiased context is the whole point. Other
+tools have no isolated-context mechanism; self-administer there, but say so explicitly in
+the report rather than presenting a self-graded score as equivalent to an independent one.
+
 ---
 
 ## Self-evaluation rubric template
@@ -122,6 +129,7 @@ Before any "done" statement on a significant task:
 
 ```
 Self-evaluation for: [task description]
+Scored by: [self — same context / self-eval-reviewer subagent]
 
 Correctness:       [N]/5 — [one sentence of evidence]
 Scope Discipline:  [N]/5 — [one sentence of evidence]
@@ -215,4 +223,4 @@ Always include a verification criterion:
 | Self-eval rubric never used in practice | Make it mandatory for hand-offs via Stop hook |
 | Scoring all 5s habitually | Rubric is calibrated wrong — make bars measurable |
 | Rubric with subjective criteria | Replace "clean code" with "passes lint with 0 errors" |
-| Separate grader agent never consulted | Use a subagent for verification on high-stakes tasks |
+| Separate grader agent never consulted | Use the `self-eval-reviewer` subagent (OpenCode/Claude Code only) for high-stakes tasks |
